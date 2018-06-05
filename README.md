@@ -1,2 +1,2 @@
 # jamira
-A web based tool for Whole genome characterizatio
+A web based tool for whole genome characterization of Enterococcus spp.
