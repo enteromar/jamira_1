@@ -43,7 +43,7 @@ class User(models.Model):
 
 class Tool_request(models.Model):
     """docstring for Tool_request"""
-    id_request = models.IntegerField(primary_key=True)
+    id_request = models.AutoField(primary_key=True)
 
     user = models.ForeignKey(
     User,
@@ -66,3 +66,4 @@ class Tool_request(models.Model):
 
     def __str__(self):
         return self.id_request
+        
