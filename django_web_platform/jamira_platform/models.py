@@ -19,13 +19,13 @@ class  Genomic_file(models.Model):
 class Tool(models.Model):
     """docstring for Tool."""
     id_tool = models.AutoField(primary_key=True)
-    path=models.FilePathField()
+    #path=models.FilePathField()
     tool_name=models.CharField(max_length=50)
-    description=models.CharField(max_length=50)
+    description=models.CharField(max_length=500)
     tp_tool=models.CharField(max_length=50)
 
     def __str__(self):
-        return self.name
+        return self.tool_name
 
 
 class User(models.Model):
@@ -66,4 +66,3 @@ class Tool_request(models.Model):
 
     def __str__(self):
         return self.id_request
-        
