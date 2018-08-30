@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
-from uploads.core.models import Genomic_file
+from jamira.jamira_platform.models import Genomic_file
 from uploads.core.forms import DocumentForm
 # Create your views here.
 
