@@ -6,3 +6,6 @@ class ExecuteTool(object):
         self.filepath = filepath
     print ("Starting ", tool ," genome analysis..."
     if(tool=="Virulence Finder"):
+        print '\nStarting Virulence Finder Data Analysis...\n\n\n'
+        os.system("./PhiSpy.py -i " + input_genome_dir + " -o " + output_analysis_dir + " -t 0")
+        print '\Virulence Finder Data Analysis finished...\n\n\n'
