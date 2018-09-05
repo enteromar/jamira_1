@@ -4,6 +4,7 @@ from core.forms import ToolRequestForm
 from core.forms import ToolRequestModelForm
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
+from pipelines import AutomatizedTool
 # Create your views here.
 
 
@@ -32,6 +33,9 @@ def upload(request):
             #get absolute genome file path
             filepath=fs.path(filename)
 
+            #call Analysis
+            job = AutomatizedTool("Virulence Finder",filepath)
+            job.start()
 
 
             #return redirect('home')
