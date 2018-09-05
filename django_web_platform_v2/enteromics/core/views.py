@@ -14,13 +14,26 @@ def index(request):
 
 def upload(request):
     if request.method == 'POST':
-        form = ToolRequestForm(request.POST, request.FILES)
+        form = ToolRequestForm(request.POST)
         if form.is_valid():
             #form.save()
+
+
+
+            #process and save uploaded file
             myfile = request.FILES['Genomic_file']
             fs = FileSystemStorage()
             filename = fs.save(myfile.name, myfile)
             uploaded_file_url = fs.url(filename)
+
+
+            #Get selected_tool from form
+            selected_tool = form.cleaned_data['tools']
+            #get absolute genome file path
+            filepath=fs.path(filename)
+
+
+
             #return redirect('home')
             return render(request, 'core/form_upload.html', {
                 'uploaded_file_url': uploaded_file_url
