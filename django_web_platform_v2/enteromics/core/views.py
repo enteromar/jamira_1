@@ -27,18 +27,17 @@ def upload(request):
             filename = fs.save(myfile.name, myfile)
             uploaded_file_url = fs.url(filename)
 
-
-            #Get selected_tool from form
-            selected_tool = form.cleaned_data['tools']
-            selected_tool = selected_tool[0].tool_name
-            print(selected_tool)
             #get absolute genome file path
             filepath=fs.path(filename)
-
-            #call Analysis
-            job = AutomatizedTool(selected_tool,filepath)
-            job.start()
-
+            #Get selected_tools from form
+            selected_tools = form.cleaned_data['tools']
+            for i in selected_tools:
+                tool = i.tool_name
+                print(tool)
+                #call Analysis
+                job = AutomatizedTool(tool,filepath)
+                job.start()
+            
 
             #return redirect('home')
             return render(request, 'core/form_upload.html', {
