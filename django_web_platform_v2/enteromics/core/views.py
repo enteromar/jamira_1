@@ -10,8 +10,8 @@ from core.pipelines import AutomatizedTool
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the enteromics index.")
-
+    #return HttpResponse("Hello, world. You're at the enteromics index.")
+    return render(request, 'core/home.html')
 
 def upload(request):
     if request.method == 'POST':
@@ -27,6 +27,7 @@ def upload(request):
             filename = fs.save(myfile.name, myfile)
             uploaded_file_url = fs.url(filename)
 
+
             #get absolute genome file path
             filepath=fs.path(filename)
             #Get selected_tools from form
@@ -37,7 +38,7 @@ def upload(request):
                 #call Analysis
                 job = AutomatizedTool(tool,filepath)
                 job.start()
-            
+
 
             #return redirect('home')
             return render(request, 'core/form_upload.html', {
