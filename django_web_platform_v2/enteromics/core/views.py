@@ -13,6 +13,10 @@ def index(request):
     #return HttpResponse("Hello, world. You're at the enteromics index.")
     return render(request, 'core/home.html')
 
+def progress(request):
+    return render(request, 'core/progress.html')
+
+
 def upload(request):
     if request.method == 'POST':
         form = ToolRequestForm(request.POST)
@@ -41,7 +45,7 @@ def upload(request):
 
 
             #return redirect('home')
-            return render(request, 'core/form_upload.html', {
+            return render(request, 'core/progress.html', {
                 'uploaded_file_url': uploaded_file_url
             })
     else:
