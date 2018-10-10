@@ -23,11 +23,12 @@ def upload(request):
         if form.is_valid():
             #form.save()
 
-
-
+            request_id = "001"
+            g_path = 'media/analysis_requests/' + request_id + '/'
             #process and save uploaded file
             myfile = request.FILES['Genomic_file']
-            fs = FileSystemStorage()
+            #fs = FileSystemStorage()
+            fs = FileSystemStorage(g_path)
             filename = fs.save(myfile.name, myfile)
             uploaded_file_url = fs.url(filename)
 
