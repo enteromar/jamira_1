@@ -17,9 +17,9 @@ class AutomatizedTool(object):
             print ('\nVirulence Finder Data Analysis finished...\n\n\n')
         if(self.tool == 'RGI'):
             print ('\nStarting RGI Data Analysis...\n\n\n')
-            #command = "rgi main -i "+ self.filepath + " -o results/resistance_out/ -t contig -n 4 -a BLAST"
+            command = "cd "+ fullpath + " ; mkdir out_resistance/ ; rgi main -i "+ self.filepath + " -o out_resistance/out_resistance -t contig -n 4 -a BLAST"
             #print(command)
-            #os.system(command)
-            #print ('\nRGI Data Analysis finished...\n\n\n')
+            os.system(command)
+            print ('\nRGI Data Analysis finished...\n\n\n')
         if(self.tool == 'PhySpy'):
             print ('\nStarting Physpy Data Analysis...\n\n\n')
