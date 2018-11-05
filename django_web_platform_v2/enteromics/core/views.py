@@ -28,6 +28,7 @@ def upload(request):
             #process and save uploaded file
             myfile = request.FILES['Genomic_file']
             #fs = FileSystemStorage()
+            #print("absolute path to the request:",settings.BASE_DIR+g_path)
             fs = FileSystemStorage(g_path)
             filename = fs.save(myfile.name, myfile)
             uploaded_file_url = fs.url(filename)
