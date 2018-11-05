@@ -8,10 +8,10 @@ class AutomatizedTool(object):
 
     def start(self):
         print ("Selected ", self.tool ," for genome analysis...")
-
+        #print ("path: ", self.filepath)
         if(self.tool == 'VirulenceFinder'):
             print ('\nStarting Virulence Finder Data Analysis...\n\n\n')
-            #command = "perl /home/icaro/virulence_finder/virulencefinder.pl -d /home/icaro/virulence_finder/database/ -i " + self.filepath + " -o analysis_results/out_virulence -s virulence_ent -k 85.00"
+            #command = "perl /home/icaro/virulence_finder/virulencefinder.pl -d /home/icaro/virulence_finder/database/ -i " + self.filepath + " -o results/out_virulence -s virulence_ent -k 85.00"
             #print(command)
             #os.system(command)
             #print ('\nVirulence Finder Data Analysis finished...\n\n\n')
