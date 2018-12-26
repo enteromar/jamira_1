@@ -23,7 +23,7 @@ def upload(request):
         if form.is_valid():
             #form.save()
 
-            request_id = "001"
+            request_id = "002"
             g_path = 'media/analysis_requests/' + request_id + '/'
             #process and save uploaded file
             myfile = request.FILES['Genomic_file']
