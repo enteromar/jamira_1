@@ -1,6 +1,10 @@
 import os
+#from process_result import
 import pandas
 import csv
+from os import listdir
+from os.path import isfile, join
+
 
 class ResultFile(object):
     """object used to encapsulate the file and his specific column to be processed and filtered"""
@@ -20,32 +24,31 @@ def get_columns(filepath,column):
     return annotated_genes
 
 
-#virulence and resitance paths and columns
-filepath_v="C:/Users/icaromsc/Documents/django/jamira/django_web_platform_v2/enteromics/out_virulence/results_tab.txt"
+def filter_results(organism_name,filepath_v,filepath_r):
+    vir=ResultFile(virulence_column,filepath_v)
+    res=ResultFile(resistance_column,filepath_r)
+    row_data=[organism_name,get_columns(vir.filepath,vir.column),get_columns(res.filepath,res.column)]
+    return row_data
+
+
+
+
+class IntegrativeResult(object):
+    """object used to """
+    def __init__(self, vir_path,resistance_path):
+        self.vir_path = vir_path
+        self.res_path = resistance_path
+
+    def start(self,filename,path):
+        data = []
+        data.append(filter_results(filename,self.vir_path,self.res_path))
+        df = pandas.DataFrame(data,columns=["Organism","Virulence factors","Resistance Genes"])
+        print("writing and saving file...")
+        df.to_csv(path+'integrative_analysis.csv')
+
+
+
+##################### PROCESS PIPELINE #############################
+mypath="genomas"
 virulence_column="Virulence factor"
-filepath_r="C:/Users/icaromsc/Documents/django/jamira/django_web_platform_v2/enteromics/media/analysis_requests/001/out_resistance/out_resistance.txt"
 resistance_column="Best_Hit_ARO"
-
-vir=ResultFile(virulence_column,filepath_v)
-res=ResultFile(resistance_column,filepath_r)
-#results = [vir,res]
-
-print("filtering columns of results...")
-
-#list to represent the organism and his genomic elements
-row_data=['E_hirae_DMW-1',get_columns(vir.filepath,vir.column),get_columns(res.filepath,res.column)]
-
-#for result in results:
-    #df = pandas.read_csv(result.filepath, sep='\t')
-    #print(df,"\n\n")
-    #annotated_genes = df[result.column].tolist()
-    #print(annotated_genes,"\n\n")
-    #raw_data.append(get_columns(result.filepath,result.column))
-print(row_data)
-
-print("saving results to dataset...")
-#create and save integrative result dataset
-data = [row_data]
-df = pandas.DataFrame(data,columns=["Organism",virulence_column,"Resistance Genes"])
-print("writing and saving file...")
-df.to_csv('output.csv')

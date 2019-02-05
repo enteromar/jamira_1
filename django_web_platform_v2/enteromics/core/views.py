@@ -5,6 +5,7 @@ from core.forms import ToolRequestModelForm
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from core.pipelines import AutomatizedTool
+from core.integrative_result import IntegrativeResult
 # Create your views here.
 
 
@@ -23,7 +24,7 @@ def upload(request):
         if form.is_valid():
             #form.save()
 
-            request_id = "002"
+            request_id = "007"
             g_path = 'media/analysis_requests/' + request_id + '/'
             #process and save uploaded file
             myfile = request.FILES['Genomic_file']
@@ -45,6 +46,8 @@ def upload(request):
                 job = AutomatizedTool(tool,filepath)
                 job.start()
 
+            integrateJob = IntegrativeResult(g_path+"out_virulence/results_tab.txt",g_path+"out_resistance/out_resistance.txt")
+            integrateJob.start("E_faecalis_V583", g_path)
 
             #return redirect('home')
             return render(request, 'core/progress.html', {
