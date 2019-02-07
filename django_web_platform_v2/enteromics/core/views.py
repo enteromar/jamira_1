@@ -6,6 +6,7 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from core.pipelines import AutomatizedTool
 from core.integrative_result import IntegrativeResult
+from core.tasks import start_pipeline
 # Create your views here.
 
 
@@ -24,7 +25,8 @@ def upload(request):
         if form.is_valid():
             #form.save()
 
-            request_id = "007"
+            request_id = "008"
+            #analysis request path
             g_path = 'media/analysis_requests/' + request_id + '/'
             #process and save uploaded file
             myfile = request.FILES['Genomic_file']
@@ -39,15 +41,20 @@ def upload(request):
             filepath=fs.path(filename)
             #Get selected_tools from form
             selected_tools = form.cleaned_data['tools']
-            for i in selected_tools:
-                tool = i.tool_name
-                print(tool)
-                #call Analysis
-                job = AutomatizedTool(tool,filepath)
-                job.start()
 
-            integrateJob = IntegrativeResult(g_path+"out_virulence/results_tab.txt",g_path+"out_resistance/out_resistance.txt")
-            integrateJob.start("E_faecalis_V583", g_path)
+            #start pipeline analysis in background with Celery
+            tools=[]
+            for i in selected_tools:
+                tools.append(i.tool_name)
+            start_pipeline.delay(tools,g_path,filepath)
+            #     print(tool)
+            #     #call Analysis
+            #     job = AutomatizedTool(tool,filepath)
+            #     job.start()
+            #
+            # integrateJob = IntegrativeResult(g_path+"out_virulence/results_tab.txt",g_path+"out_resistance/out_resistance.txt")
+            # integrateJob.start("E_faecalis_V583", g_path)
+
 
             #return redirect('home')
             return render(request, 'core/progress.html', {
